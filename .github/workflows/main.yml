@@ -1,12 +1,15 @@
 name: CI
 
 # Controls when the workflow will run
-on: [push, pull_request, workflow_dispatch]
+on: [push]
 
 jobs:
-  test:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -19,5 +22,15 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
 
-      - name: Run jlink
-        run: jlink --output runtime/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.desktop,java.management
+      - name: Run jlink linux
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: jlink --output linux/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.desktop,java.management
+
+      - name: Run jlink macOS
+        if: ${{ matrix.os == 'macOS-latest' }}
+        run: jlink --output macos/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.desktop,java.management
+
+      - name: Run jlink Wandoz
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: jlink --output windows/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.desktop,java.management
+        shell: powershell
