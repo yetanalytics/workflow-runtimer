@@ -24,8 +24,13 @@ jobs:
 
       - name: Run jlink
         run: jlink --output ${{ matrix.os }}/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.desktop,java.management
-      - name: Zip artifact
+      - name: Zip artifact on linux/macos
+        if: ${{ matrix.os != 'windows-latest' }}
         run: zip -r ${{ matrix.os }}-jre.zip ${{ matrix.os }}
+
+      - name: Zip artifact on win
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: 7z a -tzip ${{ matrix.os }}-jre.zip ${{ matrix.os }}\
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
