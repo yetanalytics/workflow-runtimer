@@ -24,3 +24,9 @@ jobs:
 
       - name: Run jlink
         run: jlink --output ${{ matrix.os }}/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.desktop,java.management
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.os }} JRE
+          path: ${{ matrix.os }}/
