@@ -22,5 +22,5 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
 
-      - name: Run jlink linux
+      - name: Run jlink
         run: jlink --output ${{ matrix.os }}/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.desktop,java.management
