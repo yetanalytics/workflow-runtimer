@@ -24,9 +24,15 @@ jobs:
 
       - name: Run jlink
         run: jlink --output ${{ matrix.os }}/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.desktop,java.management
+      - name: Zip artifact
+        run: zip -r ${{ matrix.os }}-jre.zip ${{ matrix.os }}
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          name: jre-${{ matrix.os }}
-          path: ${{ matrix.os }}/
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Upload to s3
+        run: aws s3 cp ${{ matrix.os }}-jre.zip s3://yet-public/runtimes/${{ github.ref }}/${{ matrix.os }}-jre.zip
