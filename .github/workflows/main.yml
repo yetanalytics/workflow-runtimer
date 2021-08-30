@@ -23,14 +23,4 @@ jobs:
           java-version: '11'
 
       - name: Run jlink linux
-        if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: jlink --output linux/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.desktop,java.management
-
-      - name: Run jlink macOS
-        if: ${{ matrix.os == 'macOS-latest' }}
-        run: jlink --output macos/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.desktop,java.management
-
-      - name: Run jlink Wandoz
-        if: ${{ matrix.os == 'windows-latest' }}
-        run: jlink --output windows/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.desktop,java.management
-        shell: powershell
+        run: jlink --output ${{ matrix.os }}/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.desktop,java.management
