@@ -22,7 +22,7 @@ jobs:
       - name: Prepare java
         uses: actions/setup-java@v2
         with:
-          distribution: 'zulu'
+          distribution: 'temurin'
           java-version: '11'
 
       - name: Run jlink
