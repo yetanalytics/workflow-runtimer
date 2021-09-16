@@ -26,7 +26,8 @@ jobs:
           java-version: '11'
 
       - name: Run jlink
-        run: jlink --output ${{ matrix.os }}/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.desktop,java.management
+        run: jlink --output ${{ matrix.os }}/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.management
+
       - name: Zip artifact on linux/macos
         if: ${{ matrix.os != 'windows-latest' }}
         run: zip -r ${{ matrix.os }}-jre.zip ${{ matrix.os }}
