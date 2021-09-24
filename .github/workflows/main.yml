@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-20.04, macos-10.15, windows-2019]
 
     runs-on: ${{ matrix.os }}
 
@@ -29,19 +29,45 @@ jobs:
         run: jlink --output ${{ matrix.os }}/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.management
 
       - name: Zip artifact on linux/macos
-        if: ${{ matrix.os != 'windows-latest' }}
+        if: ${{ !startsWith(matrix.os, 'windows') }}
         run: zip -r ${{ matrix.os }}-jre.zip ${{ matrix.os }}
 
       - name: Zip artifact on win
-        if: ${{ matrix.os == 'windows-latest' }}
+        if: ${{ startsWith(matrix.os, 'windows') }}
         run: 7z a -tzip ${{ matrix.os }}-jre.zip ${{ matrix.os }}\
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Archive for transfer to draft_release job
+        uses: actions/upload-artifact@v2
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          name: ${{ matrix.os }}-jre
+          path: ${{ matrix.os }}-jre.zip
 
-      - name: Upload to s3
-        run: aws s3 cp ${{ matrix.os }}-jre.zip s3://yet-public/runtimes/${{ github.ref }}/${{ matrix.os }}-jre.zip
+  draft_release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Download ubuntu-latest Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ubuntu-20.04-jre
+
+      - name: Download macOS-latest Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: macos-10.15-jre
+
+      - name: Download windows-latest Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: windows-2019-jre
+
+      - name: Craft Draft Release
+        uses: softprops/action-gh-release@v1
+        with:
+          # Defaults:
+          # name: [tag name]
+          # tag_name: github.ref
+          body: "## Release Notes\nTODO: Create great release notes!"
+          draft: true
+          files: '*-jre.zip'

@@ -1,9 +1,11 @@
-# runtimer
+# yetanalytics/runtimer
+
+This repository uses GitHub Actions to create Java runtimes for use in Yet projects like [SQL LRS](https://github.com/yetanalytics/lrsql)
 
 Create JRE runtimes:
 
 1. Edit the [workflow file](.github/workflows/main.yml)
 2. Push a tag
-3. Go get your JRE at `https://yet-public.s3.amazonaws.com/runtimes/refs/tags/<your tag>/<platform>-latest-jre.zip`
+3. You'll find a draft release waiting for you for the given tag, describe and publish it.
 
 That's it!
