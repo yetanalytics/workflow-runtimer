@@ -70,4 +70,4 @@ jobs:
           # tag_name: github.ref
           body: "## Release Notes\nTODO: Create great release notes!"
           draft: true
-          files: *-latest-jre.zip
+          files: '*-latest-jre.zip'
