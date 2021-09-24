@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-20.04, macos-10.15, windows-2019]
 
     runs-on: ${{ matrix.os }}
 
@@ -29,11 +29,11 @@ jobs:
         run: jlink --output ${{ matrix.os }}/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.management
 
       - name: Zip artifact on linux/macos
-        if: ${{ matrix.os != 'windows-latest' }}
+        if: ${{ !startsWith(matrix.os, 'windows') }}
         run: zip -r ${{ matrix.os }}-jre.zip ${{ matrix.os }}
 
       - name: Zip artifact on win
-        if: ${{ matrix.os == 'windows-latest' }}
+        if: ${{ startsWith(matrix.os, 'windows') }}
         run: 7z a -tzip ${{ matrix.os }}-jre.zip ${{ matrix.os }}\
 
       - name: Archive for transfer to draft_release job
@@ -50,17 +50,17 @@ jobs:
       - name: Download ubuntu-latest Artifact
         uses: actions/download-artifact@v2
         with:
-          name: ubuntu-latest-jre
+          name: ubuntu-20.04-jre
 
       - name: Download macOS-latest Artifact
         uses: actions/download-artifact@v2
         with:
-          name: macOS-latest-jre
+          name: macos-10.15-jre
 
       - name: Download windows-latest Artifact
         uses: actions/download-artifact@v2
         with:
-          name: windows-latest-jre
+          name: windows-2019-jre
 
       - name: Craft Draft Release
         uses: softprops/action-gh-release@v1
@@ -70,4 +70,4 @@ jobs:
           # tag_name: github.ref
           body: "## Release Notes\nTODO: Create great release notes!"
           draft: true
-          files: '*-latest-jre.zip'
+          files: '*-jre.zip'
