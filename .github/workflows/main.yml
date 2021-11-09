@@ -1,4 +1,4 @@
-name: Release Version
+name: Release JRE Version
 
 # Release on tagged versions
 on:
@@ -9,6 +9,10 @@ on:
 jobs:
   build:
     uses: yetanalytics/runtimer/.github/workflows/runtimer.yml@cf8c77d465f08962cd7901005b8cf197a6149ac1
+    with:
+      java-version: '11'
+      java-distribution: 'temurin'
+      java-modules: 'java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.management'
   draft_release:
     needs: build
     runs-on: ubuntu-latest
