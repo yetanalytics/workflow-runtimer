@@ -1,10 +1,10 @@
-name: CI
+name: Release Version
 
-# Controls when the workflow will run
+# Release on tagged versions
 on:
   push:
     tags:
-      - '*'
+      - '*.*.*'
 
 jobs:
   build:
