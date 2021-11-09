@@ -6,17 +6,17 @@ on:
     inputs:
       java-version:
         description: 'JVM version'
-        required: true
+        required: false
         type: string
         default: '11'
       java-distribution:
         description: 'JVM distribution'
-        required: true
+        required: false
         type: string
         default: 'temurin'
       java-modules:
         description: 'Java Modules'
-        required: true
+        required: false
         type: string
         default: 'java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.management'
 
