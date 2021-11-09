@@ -8,40 +8,7 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        os: [ubuntu-20.04, macos-10.15, windows-2019]
-
-    runs-on: ${{ matrix.os }}
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      - name: Prepare java
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-
-      - name: Run jlink
-        run: jlink --output ${{ matrix.os }}/ --add-modules java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.management
-
-      - name: Zip artifact on linux/macos
-        if: ${{ !startsWith(matrix.os, 'windows') }}
-        run: zip -r ${{ matrix.os }}-jre.zip ${{ matrix.os }}
-
-      - name: Zip artifact on win
-        if: ${{ startsWith(matrix.os, 'windows') }}
-        run: 7z a -tzip ${{ matrix.os }}-jre.zip ${{ matrix.os }}\
-
-      - name: Archive for transfer to draft_release job
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.os }}-jre
-          path: ${{ matrix.os }}-jre.zip
-
+    uses: yetanalytics/runtimer/.github/workflows/runtimer.yml@ed8882108af7cfb7ef2092773a19210023343fd4
   draft_release:
     needs: build
     runs-on: ubuntu-latest

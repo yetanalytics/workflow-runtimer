@@ -1,4 +1,4 @@
-name: CI
+name: Runtimer lets you bake a custom JRE on GH Actions
 
 # Controls when the workflow will run
 on:
