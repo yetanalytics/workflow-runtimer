@@ -1,4 +1,4 @@
-name: Release JRE Version
+name: (DEPRECATED) Release JRE Version
 
 # Release on tagged versions
 on:
