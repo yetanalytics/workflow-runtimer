@@ -21,7 +21,7 @@ This repo contains a [reusable workflow](https://docs.github.com/en/actions/lear
 ```
 
 This will create runtimes for the following operating systems:
-- MacOS Big Sur 11
+- MacOS Monterey 12
 - Ubuntu 20.04
 - Windows Server 2022
 

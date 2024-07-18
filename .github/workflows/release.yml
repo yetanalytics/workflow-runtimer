@@ -26,12 +26,12 @@ jobs:
       - name: Download macOS-latest Artifact
         uses: actions/download-artifact@v2
         with:
-          name: macos-10.15-jre
+          name: macos-12-jre
 
       - name: Download windows-latest Artifact
         uses: actions/download-artifact@v2
         with:
-          name: windows-2019-jre
+          name: windows-2022-jre
 
       - name: Craft Draft Release
         uses: softprops/action-gh-release@v1
