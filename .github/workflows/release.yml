@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    uses: yetanalytics/runtimer/.github/workflows/runtimer.yml@cf8c77d465f08962cd7901005b8cf197a6149ac1
+    uses: yetanalytics/runtimer/.github/workflows/runtimer.yml@7ed0b71225e1000a7e8428422555676fb4296752
     with:
       java-version: '11'
       java-distribution: 'temurin'
