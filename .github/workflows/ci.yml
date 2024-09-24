@@ -18,7 +18,7 @@ jobs:
       java-distribution: 'temurin'
       java-modules: 'java.base,java.logging,java.naming,java.xml,java.sql,java.transaction.xa,java.security.sasl,java.management'
 
-  draft_release:
+  upload_artifacts:
     needs: build
     runs-on: ubuntu-latest
     steps:
