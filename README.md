@@ -1,6 +1,6 @@
-# yetanalytics/runtimer
+# yetanalytics/workflow-runtimer
 
-This repository uses GitHub Actions to create Java runtimes for use in Yet projects like [SQL LRS](https://github.com/yetanalytics/lrsql)
+This repository uses GitHub Actions to create Java runtimes for use in Yet projects like [SQL LRS](https://github.com/yetanalytics/lrsql). This workflow is built off of the [runtimer](https://github.com/yetanalytics/runtimer) workflow, but conforms to our current guidelines for workflow naming and tagging. 
 
 ## Reusable GitHub Action
 
@@ -8,7 +8,7 @@ This repo contains a [reusable workflow](https://docs.github.com/en/actions/lear
 
 ``` yaml
   build:
-    uses: yetanalytics/runtimer/.github/workflows/runtimer.yml@< sha | tag | branch >
+    uses: yetanalytics/workflow-runtimer/.github/workflows/runtimer.yml@< sha | tag | branch >
     with:
       java-version: '11'
       java-distribution: 'temurin'
@@ -25,12 +25,3 @@ This will create runtimes for the following operating systems:
 - Ubuntu 20.04
 - Windows Server 2022
 
-## (DEPRECATED) Release JRE Runtime Packages
-
-Create JRE runtimes:
-
-1. Edit the [workflow file](.github/workflows/main.yml)
-2. Push a tag
-3. You'll find a draft release waiting for you for the given tag, describe and publish it.
-
-That's it!
