@@ -25,15 +25,14 @@ jobs:
       - name: Download ubuntu-latest Artifact
         uses: actions/download-artifact@v4
         with:
-          name: ubuntu-20.04-jre
+          name: ubuntu-22.04-jre
 
       - name: Download macOS-latest Artifact
         uses: actions/download-artifact@v4
         with:
-          name: macos-12-jre
+          name: macos-14-jre
 
       - name: Download windows-latest Artifact
         uses: actions/download-artifact@v4
         with:
           name: windows-2022-jre
-
