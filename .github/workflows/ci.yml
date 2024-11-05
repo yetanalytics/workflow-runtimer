@@ -12,7 +12,8 @@ on:
 
 jobs:
   build:
-    uses: yetanalytics/workflow-runtimer/.github/workflows/runtimer.yml@af5aff2ec2914a9a708e6875b2be3a6485c68140
+    # Update the SHA to test changes
+    uses: yetanalytics/workflow-runtimer/.github/workflows/runtimer.yml@e0eb98e881f13d046ccaa1769be6186d1d8d5399
     with:
       java-version: '11'
       java-distribution: 'temurin'
@@ -25,15 +26,14 @@ jobs:
       - name: Download ubuntu-latest Artifact
         uses: actions/download-artifact@v4
         with:
-          name: ubuntu-20.04-jre
+          name: ubuntu-22.04-jre
 
       - name: Download macOS-latest Artifact
         uses: actions/download-artifact@v4
         with:
-          name: macos-12-jre
+          name: macos-14-jre
 
       - name: Download windows-latest Artifact
         uses: actions/download-artifact@v4
         with:
           name: windows-2022-jre
-
